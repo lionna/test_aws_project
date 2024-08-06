@@ -1,0 +1,13 @@
+{
+  "name": "import-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@aws-sdk/client-sqs": "^3.609.0",
+    "csv-parser": "^3.0.0"
+  }
+}

@@ -1,0 +1,39 @@
+openapi: 3.0.0
+info:
+  title: Import API
+  version: 1.0.0
+  description: API documentation for the Import service
+servers:
+  - url: https://j8xxg9c80l.execute-api.us-east-1.amazonaws.com/prod/
+paths:
+  /import:
+    get:
+      summary: Get S3 signed URL for uploading a CSV file with products
+      operationId: importProductsFile
+      parameters:
+        - in: query
+          name: name
+          required: true
+          schema:
+            type: string
+          description: The name of the file to be uploaded
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+        '400':
+          description: File name missing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Empty file name

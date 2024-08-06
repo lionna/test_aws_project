@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  title: Product Service API
+  version: 1.0.0
+  description: API documentation for the Product Service
+servers:
+  - url: https://dapdmi8g8h.execute-api.us-east-1.amazonaws.com/prod/
+paths:
+  /products:
+    get:
+      summary: Get all products
+      tags: [Products]
+      responses:
+        '200':
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        '500':
+          description: Internal server error
+    post:
+      summary: Create a new product
+      tags: [Products]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewProduct'
+      responses:
+        '201':
+          description: Product created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+  /products/{productId}:
+    get:
+      summary: Get product by ID
+      tags: [Products]
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: Delete product by ID
+      tags: [Products]
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Product deleted successfully
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        count:
+          type: integer
+    NewProduct:
+      type: object
+      required:
+        - title
+        - price
+        - count
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        count:
+          type: integer
